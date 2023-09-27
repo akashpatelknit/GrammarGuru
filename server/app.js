@@ -12,40 +12,30 @@ app.use(
 );
 app.use(
 	cors({
-		origin: 'https://grammar-guru.vercel.app/',
+		origin: 'https://grammar-guru.vercel.app',
 		methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD'],
 		credentials: true,
 	})
 );
-// app.use((req, res, next) => {
-// 	res.header(
-// 		'Access-Control-Allow-Headers',
-// 		'Origin, X-Requiest-With, Content-Type, Accept'
-// 	);
-// 	if (true) {
-// 		res.header('Access-Control-Allow-Credentials', true);
-// 		res.header(
-// 			'Access-Control-Allow-Origin',
-// 			'https://grammar-guru.vercel.app/'
-// 		);
-// 	}
-// 	res.header(
-// 		'Access-Control-Allow-Methods',
-// 		'GET, PUT, POST, DELETE, HEAD, OPTIONS'
-// 	);
-// 	next();
-// });
-// app.use(function (req, res, next) {
-// 	//Enabling CORS
-// 	res.header('Access-Control-Allow-Origin', '*');
-// 	res.header('Access-Control-Allow-Credentials', true);
-// 	res.header('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT');
-// 	res.header(
-// 		'Access-Control-Allow-Headers',
-// 		'Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret Authorization'
-// 	);
-// 	next();
-// });
+app.use((req, res, next) => {
+	res.header(
+		'Access-Control-Allow-Headers',
+		'Origin, X-Requiest-With, Content-Type, Accept'
+	);
+	if (true) {
+		res.header('Access-Control-Allow-Credentials', true);
+		res.header(
+			'Access-Control-Allow-Origin',
+			'https://grammar-guru.vercel.app'
+		);
+	}
+	res.header(
+		'Access-Control-Allow-Methods',
+		'GET, PUT, POST, DELETE, HEAD, OPTIONS'
+	);
+	next();
+});
+
 app.use(cookieParser());
 app.use(bodyParser.json());
 require('dotenv').config({ path: 'config/config.env' });
