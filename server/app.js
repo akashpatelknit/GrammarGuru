@@ -12,7 +12,7 @@ app.use(
 );
 app.use(
 	cors({
-		origin: 'https://grammar-guru.vercel.app',
+		origin: 'https://65147da1858f75337eb12cab--brilliant-platypus-4d87ff.netlify.app',
 		methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD'],
 		credentials: true,
 	})
@@ -26,7 +26,7 @@ app.use((req, res, next) => {
 		res.header('Access-Control-Allow-Credentials', true);
 		res.header(
 			'Access-Control-Allow-Origin',
-			'https://grammar-guru.vercel.app'
+			'https://65147da1858f75337eb12cab--brilliant-platypus-4d87ff.netlify.app'
 		);
 	}
 	res.header(
