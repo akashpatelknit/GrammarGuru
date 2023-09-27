@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-const url = 'https://grammar-guru.vercel.app/';
+const url = 'https://grammer-guru.onrender.com/api/v1';
 
 export const getQuestions = createAsyncThunk(
 	'getQuestions',
