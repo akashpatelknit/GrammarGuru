@@ -22,6 +22,7 @@ exports.register = async (req, res) => {
 			expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
 			httpOnly: true,
 		};
+		req.cookie('token',token,options).save();
 		res.status(201).cookie('token', token, options).json({
 			success: true,
 			user,
@@ -60,7 +61,8 @@ exports.login = async (req, res) => {
 			expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
 			httpOnly: true,
 		};
-		console.log('login user token', token);
+		// console.log('login user token', token);
+		req.cookie('token', token, options).save();
 		res.status(200).cookie('token', token, options).json({
 			success: true,
 			user,
