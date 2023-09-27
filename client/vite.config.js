@@ -6,6 +6,6 @@ export default defineConfig({
 	plugins: [react()],
 	scripts: {
 		build: 'vite build',
-		preview: 'vite preview',
+		preview: 'vite preview --port 8080',
 	},
 });
