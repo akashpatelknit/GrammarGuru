@@ -1,4 +1,3 @@
-const { use } = require('../app');
 const User = require('../models/user');
 const Question = require('../models/Question');
 exports.register = async (req, res) => {
