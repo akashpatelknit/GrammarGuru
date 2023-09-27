@@ -2,11 +2,7 @@ const User = require('../models/user');
 const Question = require('../models/Question');
 exports.register = async (req, res) => {
 	const { name, email, password, language } = req.body;
-	// console.log(req.body);
-	// console.log(name, email, password)
-
 	let user = await User.findOne({ email });
-
 	try {
 		if (user) {
 			return res.status(400).json({ message: 'User already exist' });
@@ -22,7 +18,6 @@ exports.register = async (req, res) => {
 			expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
 			httpOnly: true,
 		};
-		req.session.save();
 		res.status(201).cookie('token', token, options).json({
 			success: true,
 			user,
@@ -61,8 +56,6 @@ exports.login = async (req, res) => {
 			expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
 			httpOnly: true,
 		};
-		// console.log('login user token', token);
-		req.session.save();
 		res.status(200).cookie('token', token, options).json({
 			success: true,
 			user,
