@@ -13,7 +13,7 @@ app.use(
 );
 app.use(
 	cors({
-		origin: 'https://grammar-guru.vercel.app',
+		origin: 'https://language-zl0i.onrender.com',
 		methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD'],
 		credentials: true,
 	})
@@ -27,7 +27,7 @@ app.use((req, res, next) => {
 		res.header('Access-Control-Allow-Credentials', true);
 		res.header(
 			'Access-Control-Allow-Origin',
-			'https://grammar-guru.vercel.app'
+			'https://language-zl0i.onrender.com'
 		);
 	}
 	res.header(

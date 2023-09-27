@@ -8,6 +8,6 @@ export default defineConfig({
 		dev: 'vite',
 		build: 'vite build',
 		preview: 'vite preview',
-		host: 'vite --host',
+		host: true,
 	},
 });
