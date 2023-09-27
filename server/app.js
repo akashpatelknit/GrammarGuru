@@ -34,6 +34,7 @@ app.use((req, res, next) => {
 });
 app.use(cookieParser());
 app.use(bodyParser.json());
+app.set('trust proxy', 1);
 require('dotenv').config({ path: 'config/config.env' });
 
 const User = require('./routes/userRoutes');
