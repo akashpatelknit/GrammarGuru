@@ -1,10 +1,10 @@
 const express = require('express');
 const {
+	register,
 	login,
 	myProfile,
 	updateLanguage,
 	logout,
-	register,
 } = require('../controller/userController');
 const { isAuthenticated } = require('../middlewares/auth');
 const { addSummaryToExercise } = require('../controller/updateSummary');

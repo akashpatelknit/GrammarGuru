@@ -1,7 +1,7 @@
 const { use } = require('../app');
 const User = require('../models/user');
 const Question = require('../models/Question');
-const register = async (req, res) => {
+exports.register = async (req, res) => {
 	const { name, email, password, language } = req.body;
 	// console.log(req.body);
 	// console.log(name, email, password)
@@ -125,8 +125,4 @@ exports.updateLanguage = async (req, res) => {
 			message: error.message,
 		});
 	}
-};
-
-module.exports = {
-	register,
 };
