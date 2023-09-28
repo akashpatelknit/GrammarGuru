@@ -38,6 +38,7 @@ async function getOne(collectionName, filterQuery) {
 async function findById(collectionName, filterQuery) {
 	const cursor = mongoClient.db(dbName).collection(collectionName);
 	const results = await cursor.findOne(filterQuery);
+	console.log(results)
 	return results;
 }
 async function createOne(collectionName, filterQuery) {
