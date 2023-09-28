@@ -3,12 +3,15 @@ const Question = require('../models/Question');
 const { getOne, createOne } = require('../config/mongodb');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+
 const matchPassword = async function (password, hashpassword) {
 	return await bcrypt.compare(password, hashpassword);
 };
+
 const generateToken = function (_id) {
 	return jwt.sign({ _id: _id }, process.env.JWT_SECRET);
 };
+
 exports.register = async (req, res) => {
 	const { name, email, password, language } = req.body;
 	let user = await getOne('users', { email });
@@ -78,6 +81,7 @@ exports.login = async (req, res) => {
 		});
 	}
 };
+
 exports.loginUser = async (req, res) => {
 	const { email, password } = req.body;
 
@@ -110,7 +114,7 @@ exports.loginUser = async (req, res) => {
 	} catch (error) {
 		res.status(500).json({
 			success: false,
-			message: error.message,
+			message: error,
 			x: 'error',
 		});
 	}
