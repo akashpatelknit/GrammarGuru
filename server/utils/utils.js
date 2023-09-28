@@ -12,7 +12,6 @@ const getUser = async (name) => {
 	}
 };
 const getAllQuestions = async (language) => {
-
 	try {
 		let questions = await getAll('questions', { language: language });
 		questions[0].language = language;

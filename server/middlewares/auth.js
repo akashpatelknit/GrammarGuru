@@ -1,11 +1,9 @@
-const { getOne, findById } = require('../config/mongodb');
-const User = require('../models/user');
+const {  findById } = require('../config/mongodb');
 const jwt = require('jsonwebtoken');
 const { ObjectId } = require('mongodb');
 exports.isAuthenticated = async (req, res, next) => {
 	try {
 		const { token } = req.cookies;
-		// console.log('in token ', token);
 		if (!token) {
 			return res.status(401).json({
 				message: 'Please login first',

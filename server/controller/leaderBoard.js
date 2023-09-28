@@ -1,5 +1,4 @@
-const { get } = require('mongoose');
-const { getAll } = require('../config/mongodb');
+const { getAll, getOne } = require('../config/mongodb');
 const User = require('../models/user');
 const { getTotalScore } = require('../utils/utils');
 
@@ -8,11 +7,12 @@ exports.getLeaderBoard = async (req, res) => {
 		let allUser = await getAll('users', {});
 		const user = await getOne('users', { _id: req.user._id });
 		let language = user.language;
-		allUser = allUser.map((user) => {
+		allUser = allUser.map((x) => {
+		console.log("***",x)
 			return {
-				name: user.name,
+				name: x.name,
 				language: language,
-				totalScore: user.exercises
+				totalScore: x.exercises
 					.filter((exercise) => exercise.language === language)
 					.map((x) => getTotalScore(x.summary))
 					.reduce((a, b) => a + b, 0),

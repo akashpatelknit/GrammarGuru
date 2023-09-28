@@ -68,6 +68,7 @@ exports.generateQuestion = async (req, res) => {
 		const { name, language } = req.body;
 		let user = await getUser(name);
 		const allquestions = await getAllQuestions(language);
+		// console.log(user)
 		const previousScore = await getPreviousScore(user.exercises);
 		let questions = getFilteredQuestions(
 			allquestions[0].questions,
@@ -75,6 +76,7 @@ exports.generateQuestion = async (req, res) => {
 		);
 		res.status(200).json(questions);
 	} catch (error) {
+	console.log(error)
 		res.status(500).json({ message: error.message });
 	}
 };
