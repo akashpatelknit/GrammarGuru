@@ -1,6 +1,6 @@
 const User = require('../models/user');
 const Question = require('../models/Question');
-const { getOne, createOne, getAll } = require('../config/mongodb');
+const { getOne, createOne } = require('../config/mongodb');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const matchPassword = async function (password, hashpassword) {
@@ -37,12 +37,11 @@ exports.register = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-	console.log('login');
 	try {
 		const { email, password } = req.body;
 
 		const user = await getOne('users', { email });
-		// console.log(user);
+		console.log(user);
 
 		if (!user) {
 			return res.status(400).json({
@@ -68,7 +67,7 @@ exports.login = async (req, res) => {
 		// console.log('login user token', token);
 		res.status(200).cookie('token', token, options).json({
 			success: true,
-			// user,
+			user,
 			token,
 		});
 	} catch (error) {
@@ -79,7 +78,41 @@ exports.login = async (req, res) => {
 		});
 	}
 };
+exports.loginUser = async (req, res) => {
+	const { email, password } = req.body;
 
+	try {
+		const user = await getOne('users', { email });
+
+		if (user) {
+			const validity = await matchPassword(password, user.password);
+
+			if (!validity) {
+				return res.status(400).json({
+					success: false,
+					message: 'Enter a valid email or password',
+				});
+			} else {
+				const token = jwt.sign(
+					{ username: user.username, id: user._id },
+					process.env.JWT_SECRET,
+					{ expiresIn: '1h' }
+				);
+				res.status(200).json({ success: true, user, token });
+			}
+		} else {
+			res.status(400).json({
+				success: false,
+				message: 'User does not exist',
+			});
+		}
+	} catch (error) {
+		res.status(500).json({
+			success: false,
+			message: error.message,
+		});
+	}
+};
 exports.logout = async (req, res) => {
 	try {
 		res.status(200)

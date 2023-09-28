@@ -5,6 +5,7 @@ const {
 	myProfile,
 	updateLanguage,
 	logout,
+	loginUser,
 } = require('../controller/userController');
 const { isAuthenticated } = require('../middlewares/auth');
 const { addSummaryToExercise } = require('../controller/updateSummary');
@@ -13,7 +14,8 @@ const { getLeaderBoard } = require('../controller/leaderBoard');
 const router = express.Router();
 
 router.route('/register').post(register);
-router.route('/login').post(login);
+router.route('/login').post(loginUser);
+// router.route('/login').post(login);
 router.route('/logout').get(logout);
 router.route('/me').get(isAuthenticated, myProfile);
 router.route('/updateExexcise').post(isAuthenticated, addSummaryToExercise);
