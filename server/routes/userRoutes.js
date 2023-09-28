@@ -1,13 +1,13 @@
 const express = require('express');
 const { loginUser } = require('../controller/userController');
-const { isAuthenticated } = require('../middlewares/auth');
-const { addSummaryToExercise } = require('../controller/updateSummary');
-const { getProgress } = require('../controller/getProgress');
-const { getLeaderBoard } = require('../controller/leaderBoard');
+// const { isAuthenticated } = require('../middlewares/auth');
+// const { addSummaryToExercise } = require('../controller/updateSummary');
+// const { getProgress } = require('../controller/getProgress');
+// const { getLeaderBoard } = require('../controller/leaderBoard');
 const router = express.Router();
 
 // router.route('/register').post(register);
-router.route('/login').post(loginUser);
+router.post('/login',loginUser);
 // router.route('/login').post(login);
 // router.route('/logout').get(logout);
 // router.route('/me').get(isAuthenticated, myProfile);

@@ -133,7 +133,7 @@ const loginUser = async (req, res) => {
 			} else {
 				const token = jwt.sign(
 					{ username: user.name, id: user._id },
-					process.env.JWT_SECRET,
+					'dhhagdhgahbfhdgfeu8w73432461353',
 					{ expiresIn: '1h' }
 				);
 				res.status(200).json({ user, token });

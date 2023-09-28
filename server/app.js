@@ -1,7 +1,5 @@
 const express = require('express');
-const { model } = require('mongoose');
 const bodyParser = require('body-parser');
-const path = require('path');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const app = express();
