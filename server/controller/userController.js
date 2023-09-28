@@ -82,41 +82,67 @@ exports.login = async (req, res) => {
 	}
 };
 
+// exports.loginUser = async (req, res) => {
+// 	const { email, password } = req.body;
+// 	console.log('login user', email, password, 'login user')
+// 	try {	
+// 		const user = await getOne('users', { email });
+
+// 		if (user) {
+// 			const validity = await matchPassword(password, user.password);
+
+// 			if (!validity) {
+// 				return res.status(400).json({
+// 					success: false,
+// 					message: 'Enter a valid email or password',
+// 				});
+// 			} else {
+// 				const token = jwt.sign(
+// 					{ username: user.username, id: user._id },
+// 					process.env.JWT_SECRET,
+// 					{ expiresIn: '1h' }
+// 				);
+// 				res.status(200).json({ success: true, user, token });
+// 			}
+// 		} else {
+// 			res.status(400).json({
+// 				success: false,
+// 				message: 'User does not exist',
+			
+// 			});
+// 		}
+// 	} catch (error) {
+// 		res.status(500).json({
+// 			success: false,
+// 			message: error.message,
+// 			x: 'error',
+// 		});
+// 	}
+// };
+
 exports.loginUser = async (req, res) => {
 	const { email, password } = req.body;
 
 	try {
-		const user = await getOne('users', { email });
-
+		const user = await User.findOne({ email });
+		console.log(user)
 		if (user) {
 			const validity = await matchPassword(password, user.password);
-
 			if (!validity) {
-				return res.status(400).json({
-					success: false,
-					message: 'Enter a valid email or password',
-				});
+				res.status(400).json('wrong password');
 			} else {
 				const token = jwt.sign(
-					{ username: user.username, id: user._id },
+					{ username: user.name, id: user._id },
 					process.env.JWT_SECRET,
 					{ expiresIn: '1h' }
 				);
-				res.status(200).json({ success: true, user, token });
+				res.status(200).json({ user, token });
 			}
 		} else {
-			res.status(400).json({
-				success: false,
-				message: 'User does not exist',
-			
-			});
+			res.status(404).json('User not found');
 		}
-	} catch (error) {
-		res.status(500).json({
-			success: false,
-			message: error.error,
-			x: 'error',
-		});
+	} catch (err) {
+		res.status(500).json({message:err.message});
 	}
 };
 exports.logout = async (req, res) => {

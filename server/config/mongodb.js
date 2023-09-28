@@ -1,4 +1,3 @@
-const { MongoClient } = require('mongodb');
 const dbName = 'test';
 const url =
 	'mongodb+srv://cotsec14:emitrr@emitrr.5mpbco5.mongodb.net/?retryWrites=true&w=majority';
@@ -14,7 +13,6 @@ const connectDB = async () => {
 		// Connect to the client and query
 		const mongoConnectResult = await mongoClient.connect();
 		console.log('DB connected');
-		console.log('mongo connection details - ', url, dbName);
 	} catch (error) {
 		console.log(error.message);
 	}
