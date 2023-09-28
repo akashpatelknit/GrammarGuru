@@ -104,12 +104,14 @@ exports.loginUser = async (req, res) => {
 			res.status(400).json({
 				success: false,
 				message: 'User does not exist',
+			
 			});
 		}
 	} catch (error) {
 		res.status(500).json({
 			success: false,
 			message: error.message,
+			x: 'error',
 		});
 	}
 };

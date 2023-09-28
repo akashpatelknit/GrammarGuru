@@ -1,5 +1,5 @@
 const { MongoClient } = require('mongodb');
-const dbName = process.env.MONGO_DB_NAME || 'test';
+const dbName = 'test';
 const url =
 	'mongodb+srv://cotsec14:emitrr@emitrr.5mpbco5.mongodb.net/?retryWrites=true&w=majority';
 
