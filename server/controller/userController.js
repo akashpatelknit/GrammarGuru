@@ -120,7 +120,7 @@ const generateToken = function (_id) {
 // 	}
 // };
 
-export const loginUser = async (req, res) => {
+const loginUser = async (req, res) => {
 	const { email, password } = req.body;
 
 	try {
@@ -203,3 +203,5 @@ export const loginUser = async (req, res) => {
 // 		});
 // 	}
 // };
+
+module.exports = { loginUser };
