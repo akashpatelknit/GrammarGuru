@@ -13,7 +13,7 @@ app.use(
 );
 app.use(
 	cors({
-		origin: 'https://language-zl0i.onrender.com',
+		origin: 'http://localhost:5173',
 		methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD'],
 		credentials: true,
 	})
@@ -25,10 +25,7 @@ app.use((req, res, next) => {
 	);
 	if (true) {
 		res.header('Access-Control-Allow-Credentials', true);
-		res.header(
-			'Access-Control-Allow-Origin',
-			'https://language-zl0i.onrender.com'
-		);
+		res.header('Access-Control-Allow-Origin', 'http://localhost:5173');
 	}
 	res.header(
 		'Access-Control-Allow-Methods',

@@ -1,9 +1,10 @@
+const { getOne } = require('../config/mongodb');
 const User = require('../models/user');
-const { getPreviousScore, getTotalScore } = require('../utils/utils');
+const {  getTotalScore } = require('../utils/utils');
 
 exports.getProgress = async (req, res) => {
 	try {
-		let user = await User.findById(req.user._id);
+		let user = await getOne('users', { _id: req.user._id });
 		let exercises = user.exercises.filter(
 			(item) => item.language === user.language
 		);

@@ -8,8 +8,7 @@ const LeaderBoard = () => {
 		dispatch(getLeaderBoard());
 	}, [dispatch]);
 	const allUserScore = useSelector((state) => state.leader.allUserScore);
-	const { name } = useSelector((state) => state.user.user.user);
-	console.log(name);
+	const { name } = useSelector((state) => state.user.userInfo);
 	return (
 		<div className="leaderboard">
 			<h2>Leaderboard</h2>

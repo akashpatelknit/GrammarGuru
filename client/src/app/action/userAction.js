@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 
-const url = 'https://grammer-guru.onrender.com/api/v1';
+const url = 'http://localhost:8080/api/v1';
 export const registerUser = createAsyncThunk(
 	'registerUser',
 	async (data, { rejectWithValue }) => {

@@ -1,19 +1,19 @@
 const User = require('../models/user');
 const Question = require('../models/Question');
+const { getAll, getOne } = require('../config/mongodb');
 
 const getUser = async (name) => {
 	try {
-		const user = User.findOne({ name: name });
+		const user = getOne('users', { name: name });
 		return user;
 	} catch (error) {
 		console.log(error);
 		return error.message;
 	}
 };
-
 const getAllQuestions = async (language) => {
 	try {
-		let questions = await Question.find({ language: language });
+		let questions = await getAll('questions', { language: language });
 		questions[0].language = language;
 		return questions;
 	} catch (error) {
@@ -22,7 +22,7 @@ const getAllQuestions = async (language) => {
 	}
 };
 
-const getPreviousScore = async (exercises) => {
+const getPreviousScore = (exercises) => {
 	if (exercises.length === 0) return 0;
 	let latestExercise = exercises[exercises.length - 1].summary;
 	let points = 0;
@@ -47,4 +47,4 @@ const getTotalScore = (arr) => {
 	return points;
 };
 
-module.exports = { getUser, getAllQuestions, getPreviousScore,getTotalScore };
+module.exports = { getUser, getAllQuestions, getPreviousScore, getTotalScore };

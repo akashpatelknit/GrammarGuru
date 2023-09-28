@@ -1,10 +1,12 @@
+const { get } = require('mongoose');
+const { getAll } = require('../config/mongodb');
 const User = require('../models/user');
 const { getTotalScore } = require('../utils/utils');
 
 exports.getLeaderBoard = async (req, res) => {
 	try {
-		let allUser = await User.find({});
-		const user = await User.findById(req.user._id);
+		let allUser = await getAll('users', {});
+		const user = await getOne('users', { _id: req.user._id });
 		let language = user.language;
 		allUser = allUser.map((user) => {
 			return {

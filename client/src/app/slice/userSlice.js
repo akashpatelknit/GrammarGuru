@@ -10,11 +10,10 @@ import {
 const userSlice = createSlice({
 	name: 'userSlice',
 	initialState: {
-		users: {},
+		userInfo: {},
 		loading: false,
 		error: null,
 		isAuthenticated: false,
-		searchData: [],
 		allLanguage: [],
 	},
 	reducers: {},
@@ -59,7 +58,7 @@ const userSlice = createSlice({
 		},
 		[loadUser.fulfilled]: (state, action) => {
 			state.loading = false;
-			state.user = action.payload;
+			state.userInfo = action.payload.user;
 			state.allLanguage = action.payload.language;
 			state.isAuthenticated = true;
 		},
