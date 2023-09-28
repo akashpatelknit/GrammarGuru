@@ -120,7 +120,7 @@ const generateToken = function (_id) {
 // 	}
 // };
 
-exports.loginUser = async (req, res) => {
+export const loginUser = async (req, res) => {
 	const { email, password } = req.body;
 
 	try {

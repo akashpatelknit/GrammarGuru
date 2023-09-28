@@ -1,12 +1,5 @@
 const express = require('express');
-const {
-	register,
-	login,
-	myProfile,
-	updateLanguage,
-	logout,
-	loginUser,
-} = require('../controller/userController');
+const { loginUser } = require('../controller/userController');
 const { isAuthenticated } = require('../middlewares/auth');
 const { addSummaryToExercise } = require('../controller/updateSummary');
 const { getProgress } = require('../controller/getProgress');
