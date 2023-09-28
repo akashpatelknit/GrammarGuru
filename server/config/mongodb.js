@@ -4,7 +4,7 @@ const url =
 
 let mongoClient = null;
 
-const connectDB = async () => {
+const connectDB = async (server) => {
 	try {
 		const MongoClient = require('mongodb').MongoClient;
 
@@ -12,9 +12,10 @@ const connectDB = async () => {
 
 		// Connect to the client and query
 		const mongoConnectResult = await mongoClient.connect();
+		await server();
 		console.log('DB connected');
 	} catch (error) {
-		console.log(error.message);
+		console.log('err',error.message);
 	}
 };
 

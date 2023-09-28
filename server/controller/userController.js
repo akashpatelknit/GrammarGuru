@@ -39,48 +39,48 @@ const generateToken = function (_id) {
 // 	}
 // };
 
-// exports.login = async (req, res) => {
-// 	try {
-// 		const { email, password } = req.body;
+exports.login = async (req, res) => {
+	try {
+		const { email, password } = req.body;
 
-// 		const user = await getOne('users', { email });
-// 		console.log(user);
+		const user = await getOne('users', { email });
+		// console.log(user);
 
-// 		if (!user) {
-// 			return res.status(400).json({
-// 				success: false,
-// 				message: 'User does not exist',
-// 			});
-// 		}
+		if (!user) {
+			return res.status(400).json({
+				success: false,
+				message: 'User does not exist',
+			});
+		}
 
-// 		const isMatch = await matchPassword(password, user.password);
+		const isMatch = await matchPassword(password, user.password);
 
-// 		if (!isMatch) {
-// 			return res.status(700).json({
-// 				success: false,
-// 				message: 'Enter a valid email or password',
-// 			});
-// 		}
+		if (!isMatch) {
+			return res.status(700).json({
+				success: false,
+				message: 'Enter a valid email or password',
+			});
+		}
 
-// 		const token = await generateToken(user._id);
-// 		const options = {
-// 			expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
-// 			httpOnly: true,
-// 		};
-// 		// console.log('login user token', token);
-// 		res.status(200).cookie('token', token, options).json({
-// 			success: true,
-// 			user,
-// 			token,
-// 		});
-// 	} catch (error) {
-// 		console.log(error.message);
-// 		res.status(500).json({
-// 			success: false,
-// 			message: error.error,
-// 		});
-// 	}
-// };
+		const token = await generateToken(user._id);
+		const options = {
+			expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
+			httpOnly: true,
+		};
+		// console.log('login user token', token);
+		res.status(200).cookie('token', token, options).json({
+			success: true,
+			user,
+			token,
+		});
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({
+			success: false,
+			message: error.error,
+		});
+	}
+};
 
 // exports.loginUser = async (req, res) => {
 // 	const { email, password } = req.body;
@@ -120,88 +120,86 @@ const generateToken = function (_id) {
 // 	}
 // };
 
-const loginUser = async (req, res) => {
-	const { email, password } = req.body;
+// exports.loginUser = async (req, res) => {
+// 	const { email, password } = req.body;
 
+// 	try {
+// 		const user = await User.findOne({ email });
+// 		console.log(user)
+// 		if (user) {
+// 			const validity = await matchPassword(password, user.password);
+// 			if (!validity) {
+// 				res.status(400).json('wrong password');
+// 			} else {
+// 				const token = jwt.sign(
+// 					{ username: user.name, id: user._id },
+// 					process.env.JWT_SECRET,
+// 					{ expiresIn: '1h' }
+// 				);
+// 				res.status(200).json({ user, token });
+// 			}
+// 		} else {
+// 			res.status(404).json('User not found');
+// 		}
+// 	} catch (err) {
+// 		res.status(500).json({message:err.message});
+// 	}
+// };
+
+exports.logout = async (req, res) => {
 	try {
-		const user = await User.findOne({ email });
-		console.log(user)
-		if (user) {
-			const validity = await matchPassword(password, user.password);
-			if (!validity) {
-				res.status(400).json('wrong password');
-			} else {
-				const token = jwt.sign(
-					{ username: user.name, id: user._id },
-					'dhhagdhgahbfhdgfeu8w73432461353',
-					{ expiresIn: '1h' }
-				);
-				res.status(200).json({ user, token });
-			}
-		} else {
-			res.status(404).json('User not found');
-		}
-	} catch (err) {
-		res.status(500).json({message:err.message});
+		res.status(200)
+			.cookie('token', null, {
+				expires: new Date(Date.now()),
+				httpOnly: true,
+			})
+			.json({
+				success: true,
+				message: 'Logged out',
+			});
+	} catch (error) {
+		res.status(500).json({
+			success: false,
+			message: error.message,
+		});
+	}
+};
+exports.myProfile = async (req, res) => {
+	try {
+		const user = await getOne('users', { _id: req.user._id });
+		const question = await getAll('questions', {
+			language: { $exists: 1 },
+		});
+		let requiredInfo = {
+			name: user.name,
+			language: user.language,
+		};
+		res.status(200).json({
+			success: true,
+			user: requiredInfo,
+			language: question.map((item) => item.language),
+		});
+	} catch (error) {
+		res.status(500).json({
+			success: false,
+			message: error.message,
+		});
 	}
 };
 
-// exports.logout = async (req, res) => {
-// 	try {
-// 		res.status(200)
-// 			.cookie('token', null, {
-// 				expires: new Date(Date.now()),
-// 				httpOnly: true,
-// 			})
-// 			.json({
-// 				success: true,
-// 				message: 'Logged out',
-// 			});
-// 	} catch (error) {
-// 		res.status(500).json({
-// 			success: false,
-// 			message: error.message,
-// 		});
-// 	}
-// };
-// exports.myProfile = async (req, res) => {
-// 	try {
-// 		const user = await getOne('users', { _id: req.user._id });
-// 		const question = await getAll('questions', {
-// 			language: { $exists: 1 },
-// 		});
-// 		let requiredInfo = {
-// 			name: user.name,
-// 			language: user.language,
-// 		};
-// 		res.status(200).json({
-// 			success: true,
-// 			user: requiredInfo,
-// 			language: question.map((item) => item.language),
-// 		});
-// 	} catch (error) {
-// 		res.status(500).json({
-// 			success: false,
-// 			message: error.message,
-// 		});
-// 	}
-// };
-
-// exports.updateLanguage = async (req, res) => {
-// 	try {
-// 		const user = await getOne('users', { _id: req.user._id });
-// 		console.log(req.body.language);
-// 		user.language = req.body.language;
-// 		await user.save();
-// 		res.status(200).json({
-// 			success: true,
-// 		});
-// 	} catch (error) {
-// 		res.status(500).json({
-// 			success: false,
-// 			message: error.message,
-// 		});
-// 	}
-// };
-
-module.exports = { loginUser };
+exports.updateLanguage = async (req, res) => {
+	try {
+		const user = await getOne('users', { _id: req.user._id });
+		console.log(req.body.language);
+		user.language = req.body.language;
+		await user.save();
+		res.status(200).json({
+			success: true,
+		});
+	} catch (error) {
+		res.status(500).json({
+			success: false,
+			message: error.message,
+		});
+	}
+};

@@ -1,5 +1,5 @@
 const express = require('express');
-const { loginUser } = require('../controller/userController');
+const { loginUser, logout, login } = require('../controller/userController');
 // const { isAuthenticated } = require('../middlewares/auth');
 // const { addSummaryToExercise } = require('../controller/updateSummary');
 // const { getProgress } = require('../controller/getProgress');
@@ -7,7 +7,7 @@ const { loginUser } = require('../controller/userController');
 const router = express.Router();
 
 // router.route('/register').post(register);
-router.post('/login',loginUser);
+router.post('/login',login);
 // router.route('/login').post(login);
 // router.route('/logout').get(logout);
 // router.route('/me').get(isAuthenticated, myProfile);
