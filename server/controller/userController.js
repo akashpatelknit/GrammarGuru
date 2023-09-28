@@ -40,49 +40,29 @@ exports.register = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
+	const { email, password } = req.body;
+
 	try {
-		const { email, password } = req.body;
-
 		const user = await getOne('users', { email });
-		// console.log(user);
 
-		if (!user) {
-			return res.status(400).json({
-				success: false,
-				message: 'User does not exist',
-			});
+		if (user) {
+			const validity = await matchPassword(password, user.password);
+
+			if (!validity) {
+				res.status(400).json('wrong password');
+			} else {
+				const token = jwt.sign(
+					{ username: user.username, id: user._id },
+					process.env.JWT_SECRET,
+					{ expiresIn: '1h' }
+				);
+				res.status(200).json({ user, token });
+			}
+		} else {
+			res.status(404).json('User not found');
 		}
-
-		const isMatch = await matchPassword(password, user.password);
-
-		if (!isMatch) {
-			return res.status(700).json({
-				success: false,
-				message: 'Enter a valid email or password',
-			});
-		}
-
-		const token = await generateToken(user._id);
-		const options = {
-			expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
-			httpOnly: true,
-			expiresIn: '1h',
-			Path: '/',
-
-			
-		};
-		// console.log('login user token', token);
-		res.status(200).cookie('token', token, options).json({
-			success: true,
-			user,
-			token,
-		});
-	} catch (error) {
-		console.log(error);
-		res.status(500).json({
-			success: false,
-			message: error.error,
-		});
+	} catch (err) {
+		res.status(500).json(err);
 	}
 };
 
