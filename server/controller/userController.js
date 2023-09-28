@@ -56,7 +56,14 @@ exports.login = async (req, res) => {
 					process.env.JWT_SECRET,
 					{ expiresIn: '1h' }
 				);
-				res.status(200).json({ user, token });
+				res.status(200)
+					.cookie('token', token, {
+						httpOnly: true,
+						maxAge: 1000 * 60 * 60 * 24 * 90,
+						secure: true,
+						sameSite: 'none',
+					})
+					.json({ user, token });
 			}
 		} else {
 			res.status(404).json('User not found');
