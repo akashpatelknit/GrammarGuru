@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getProgress } from '../action/progressAction';
-import { getLeaderBoard } from '../action/leaderBoard';
 
 const progressSlice = createSlice({
 	name: 'progressSlice',
