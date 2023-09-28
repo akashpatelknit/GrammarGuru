@@ -40,7 +40,7 @@ require('dotenv').config({ path: 'config/config.env' });
 const User = require('./routes/userRoutes');
 const Question = require('./routes/questionRoute');
 app.use('/api/v1', User);
-// app.use('/api/v1', Question);
+app.use('/api/v1', Question);
 
 app.get('/', (req, res) => {
 	// console.log('Cookies: ', req.cookies);

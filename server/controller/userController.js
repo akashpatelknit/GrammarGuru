@@ -1,6 +1,6 @@
 const User = require('../models/user');
 const Question = require('../models/Question');
-const { getOne, createOne } = require('../config/mongodb');
+const { getOne, createOne, getAll } = require('../config/mongodb');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -12,32 +12,32 @@ const generateToken = function (_id) {
 	return jwt.sign({ _id: _id }, process.env.JWT_SECRET);
 };
 
-// exports.register = async (req, res) => {
-// 	const { name, email, password, language } = req.body;
-// 	let user = await getOne('users', { email });
-// 	try {
-// 		if (user) {
-// 			return res.status(400).json({ message: 'User already exist' });
-// 		}
-// 		user = await createOne('users', {
-// 			name,
-// 			email,
-// 			password,
-// 			language,
-// 		});
-// 		const token = await generateToken(user._id);
-// 		const options = {
-// 			expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
-// 			httpOnly: true,
-// 		};
-// 		res.status(201).cookie('token', token, options).json({
-// 			success: true,
-// 			token,
-// 		});
-// 	} catch (error) {
-// 		res.status(500).json({ success: false, message: error.message });
-// 	}
-// };
+exports.register = async (req, res) => {
+	const { name, email, password, language } = req.body;
+	let user = await getOne('users', { email });
+	try {
+		if (user) {
+			return res.status(400).json({ message: 'User already exist' });
+		}
+		user = await createOne('users', {
+			name,
+			email,
+			password,
+			language,
+		});
+		const token = await generateToken(user._id);
+		const options = {
+			expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
+			httpOnly: true,
+		};
+		res.status(201).cookie('token', token, options).json({
+			success: true,
+			token,
+		});
+	} catch (error) {
+		res.status(500).json({ success: false, message: error.message });
+	}
+};
 
 exports.login = async (req, res) => {
 	try {
@@ -81,70 +81,6 @@ exports.login = async (req, res) => {
 		});
 	}
 };
-
-// exports.loginUser = async (req, res) => {
-// 	const { email, password } = req.body;
-// 	console.log('login user', email, password, 'login user')
-// 	try {	
-// 		const user = await getOne('users', { email });
-
-// 		if (user) {
-// 			const validity = await matchPassword(password, user.password);
-
-// 			if (!validity) {
-// 				return res.status(400).json({
-// 					success: false,
-// 					message: 'Enter a valid email or password',
-// 				});
-// 			} else {
-// 				const token = jwt.sign(
-// 					{ username: user.username, id: user._id },
-// 					process.env.JWT_SECRET,
-// 					{ expiresIn: '1h' }
-// 				);
-// 				res.status(200).json({ success: true, user, token });
-// 			}
-// 		} else {
-// 			res.status(400).json({
-// 				success: false,
-// 				message: 'User does not exist',
-			
-// 			});
-// 		}
-// 	} catch (error) {
-// 		res.status(500).json({
-// 			success: false,
-// 			message: error.message,
-// 			x: 'error',
-// 		});
-// 	}
-// };
-
-// exports.loginUser = async (req, res) => {
-// 	const { email, password } = req.body;
-
-// 	try {
-// 		const user = await User.findOne({ email });
-// 		console.log(user)
-// 		if (user) {
-// 			const validity = await matchPassword(password, user.password);
-// 			if (!validity) {
-// 				res.status(400).json('wrong password');
-// 			} else {
-// 				const token = jwt.sign(
-// 					{ username: user.name, id: user._id },
-// 					process.env.JWT_SECRET,
-// 					{ expiresIn: '1h' }
-// 				);
-// 				res.status(200).json({ user, token });
-// 			}
-// 		} else {
-// 			res.status(404).json('User not found');
-// 		}
-// 	} catch (err) {
-// 		res.status(500).json({message:err.message});
-// 	}
-// };
 
 exports.logout = async (req, res) => {
 	try {
