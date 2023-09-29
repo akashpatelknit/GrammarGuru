@@ -127,9 +127,10 @@ exports.updateLanguage = async (req, res) => {
 			name: user.name,
 			language: req.body.language,
 		});
+
 		res.status(200).json({
 			success: true,
-			user: result,
+			result,
 		});
 	} catch (error) {
 		res.status(500).json({

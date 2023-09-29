@@ -27,10 +27,7 @@ const Profile = () => {
 		dispatch(updateLanguage({ language: selectedLang }));
 		// window.location.reload();
 	};
-	useEffect(() => {
-		window.location.reload();
-		// dispatch(updateLocalLang(selectedLang));
-	}, [isLanguageUpdate]);
+	
 
 	const handleLogout = () => {
 		dispatch(logout());

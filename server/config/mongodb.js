@@ -56,7 +56,7 @@ const updateClientMetconPerformance = async (client_name, data) => {
 			},
 		}
 	);
-	// console.log(result)
+	console.log(result)
 	return result;
 };
 const updateClient = async (data) => {
@@ -70,6 +70,10 @@ const updateClient = async (data) => {
 			},
 		}
 	);
+	if(result.acknowledged === true){	
+		return data;
+	}
+
 };
 module.exports = {
 	connectDB,
