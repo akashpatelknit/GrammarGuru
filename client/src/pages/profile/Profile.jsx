@@ -6,7 +6,8 @@ import { getProgress } from '../../app/action/progressAction';
 import { Link, useNavigate } from 'react-router-dom';
 import { HiOutlineLogout } from 'react-icons/hi';
 import { useEffect, useState } from 'react';
-import {logout, updateLanguage } from '../../app/action/userAction';
+import { logout, updateLanguage } from '../../app/action/userAction';
+import { updateLocalLang } from '../../app/slice/userSlice';
 const Profile = () => {
 	const [edit, setEdit] = useState(false);
 	const [selectedLang, setSelectedLang] = useState('');
@@ -15,19 +16,25 @@ const Profile = () => {
 	useEffect(() => {
 		dispatch(getProgress());
 	}, [dispatch]);
-	const{name,language} = useSelector((state) => state.user.userInfo);
-	const { allLanguage } = useSelector((state) => state.user);
-	
+	const { name, language } = useSelector((state) => state.user.userInfo);
+	const { allLanguage, isLanguageUpdate } = useSelector(
+		(state) => state.user
+	);
+
 	const labels = useSelector((state) => state.progress.labels);
 	const handlesave = () => {
 		setEdit(!edit);
 		dispatch(updateLanguage({ language: selectedLang }));
-		// window.location.reload();	
+		// window.location.reload();
 	};
+	useEffect(() => {
+		window.location.reload();
+		// dispatch(updateLocalLang(selectedLang));
+	}, [isLanguageUpdate]);
+
 	const handleLogout = () => {
 		dispatch(logout());
 		navigate('/');
-
 	};
 	return (
 		<div>
@@ -49,7 +56,6 @@ const Profile = () => {
 							value={selectedLang}
 							onChange={(e) => setSelectedLang(e.target.value)}
 						>
-						
 							<option>choose a language</option>
 							{allLanguage?.map((item, index) => (
 								<option key={index} value={item}>

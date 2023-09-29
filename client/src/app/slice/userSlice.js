@@ -14,9 +14,14 @@ const userSlice = createSlice({
 		loading: false,
 		error: null,
 		isAuthenticated: false,
+		isLanguageUpdate: false,
 		allLanguage: [],
 	},
-	reducers: {},
+	reducers: {
+		updateLocalLang: (state, action) => {
+			state.userInfo.language = action.payload;
+		},
+	},
 	extraReducers: {
 		[registerUser.pending]: (state) => {
 			state.loading = true;
@@ -72,6 +77,7 @@ const userSlice = createSlice({
 		},
 		[updateLanguage.fulfilled]: (state) => {
 			state.loading = false;
+			state.isLanguageUpdate = true;
 		},
 		[updateLanguage.rejected]: (state, action) => {
 			state.loading = false;
@@ -90,4 +96,5 @@ const userSlice = createSlice({
 		},
 	},
 });
+export const { updateLocalLang } = userSlice.actions;
 export default userSlice.reducer;
