@@ -22,7 +22,7 @@ const Profile = () => {
 	const handlesave = () => {
 		setEdit(!edit);
 		dispatch(updateLanguage({ language: selectedLang }));
-		window.location.reload();	
+		// window.location.reload();	
 	};
 	const handleLogout = () => {
 		dispatch(logout());
