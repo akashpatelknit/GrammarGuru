@@ -16,16 +16,14 @@ const Profile = () => {
 		dispatch(getProgress());
 	}, [dispatch]);
 	const { name, language } = useSelector((state) => state.user.userInfo);
-	const { allLanguage } = useSelector(
-		(state) => state.user
-	);
+	const { allLanguage } = useSelector((state) => state.user);
 
 	const labels = useSelector((state) => state.progress.labels);
 	const handlesave = () => {
 		setEdit(!edit);
+		dispatch(getProgress());
 		dispatch(updateLanguage({ language: selectedLang }));
 	};
-	
 
 	const handleLogout = () => {
 		dispatch(logout());
