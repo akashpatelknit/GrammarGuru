@@ -1,7 +1,8 @@
 
-import { Bar } from 'react-chartjs-2';
 import { useSelector } from 'react-redux';
-
+import { Chart as ChartJS, registerables } from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+ChartJS.register(...registerables);
 const BarChart = () => {
 	const labels = ['Easy', 'Medium', 'Hard'];
 	const { easy, medium, hard } = useSelector((state) => state.progress);

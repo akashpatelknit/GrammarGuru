@@ -1,3 +1,5 @@
+import { Chart as ChartJS, registerables } from 'chart.js';
+ChartJS.register(...registerables);
 import { Line } from 'react-chartjs-2';
 import { useSelector } from 'react-redux';
 const LineChart = () => {
