@@ -1,6 +1,11 @@
 const User = require('../models/user');
 const Question = require('../models/Question');
-const { getOne, createOne, getAll } = require('../config/mongodb');
+const {
+	getOne,
+	createOne,
+	getAll,
+	updateClient,
+} = require('../config/mongodb');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -117,11 +122,14 @@ exports.myProfile = async (req, res) => {
 exports.updateLanguage = async (req, res) => {
 	try {
 		const user = await getOne('users', { _id: req.user._id });
-		console.log(req.body.language);
-		user.language = req.body.language;
-		await user.save();
+		// console.log(req.body.language);
+		const result = await updateClient({
+			name: user.name,
+			language: req.body.language,
+		});
 		res.status(200).json({
 			success: true,
+			user: result,
 		});
 	} catch (error) {
 		res.status(500).json({

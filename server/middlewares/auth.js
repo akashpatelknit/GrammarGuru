@@ -13,7 +13,7 @@ exports.isAuthenticated = async (req, res, next) => {
 		req.user = await findById('users', { _id: new ObjectId(decoded.id) });
 		next();
 	} catch (error) {
-		console.log(error.message);
+		// console.log(error.message);
 		res.status(500).json({
 			message: error.message,
 		});

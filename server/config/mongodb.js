@@ -38,7 +38,7 @@ async function getOne(collectionName, filterQuery) {
 async function findById(collectionName, filterQuery) {
 	const cursor = mongoClient.db(dbName).collection(collectionName);
 	const results = await cursor.findOne(filterQuery);
-	console.log(results)
+	// console.log(results);
 	return results;
 }
 async function createOne(collectionName, filterQuery) {
@@ -58,6 +58,18 @@ const updateClientMetconPerformance = async (client_name, data) => {
 	);
 	return result;
 };
+const updateClient = async (data) => {
+	const collection = mongoClient.db(dbName).collection('users');
+
+	const result = await collection.updateOne(
+		{ name: data.name },
+		{
+			$set: {
+				language: data.language,
+			},
+		}
+	);
+};
 module.exports = {
 	connectDB,
 	getAll,
@@ -65,4 +77,5 @@ module.exports = {
 	createOne,
 	findById,
 	updateClientMetconPerformance,
+	updateClient,
 };
