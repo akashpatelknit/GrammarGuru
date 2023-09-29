@@ -7,7 +7,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { HiOutlineLogout } from 'react-icons/hi';
 import { useEffect, useState } from 'react';
 import { logout, updateLanguage } from '../../app/action/userAction';
-import { updateLocalLang } from '../../app/slice/userSlice';
 const Profile = () => {
 	const [edit, setEdit] = useState(false);
 	const [selectedLang, setSelectedLang] = useState('');
@@ -17,7 +16,7 @@ const Profile = () => {
 		dispatch(getProgress());
 	}, [dispatch]);
 	const { name, language } = useSelector((state) => state.user.userInfo);
-	const { allLanguage, isLanguageUpdate } = useSelector(
+	const { allLanguage } = useSelector(
 		(state) => state.user
 	);
 
@@ -25,7 +24,6 @@ const Profile = () => {
 	const handlesave = () => {
 		setEdit(!edit);
 		dispatch(updateLanguage({ language: selectedLang }));
-		// window.location.reload();
 	};
 	
 
