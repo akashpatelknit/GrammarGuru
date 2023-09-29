@@ -17,6 +17,7 @@ const Profile = () => {
 	}, [dispatch]);
 	const{name,language} = useSelector((state) => state.user.userInfo);
 	const { allLanguage } = useSelector((state) => state.user);
+	
 	const labels = useSelector((state) => state.progress.labels);
 	const handlesave = () => {
 		setEdit(!edit);

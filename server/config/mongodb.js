@@ -56,6 +56,7 @@ const updateClientMetconPerformance = async (client_name, data) => {
 			},
 		}
 	);
+	// console.log(result)
 	return result;
 };
 const updateClient = async (data) => {

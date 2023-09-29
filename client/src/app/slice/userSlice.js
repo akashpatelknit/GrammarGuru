@@ -70,9 +70,8 @@ const userSlice = createSlice({
 		[updateLanguage.pending]: (state) => {
 			state.loading = true;
 		},
-		[updateLanguage.fulfilled]: (state, action) => {
+		[updateLanguage.fulfilled]: (state) => {
 			state.loading = false;
-			state.user = action.payload;
 		},
 		[updateLanguage.rejected]: (state, action) => {
 			state.loading = false;
