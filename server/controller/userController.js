@@ -68,7 +68,7 @@ exports.login = async (req, res) => {
 						secure: true,
 						sameSite: 'none',
 					})
-					.json({ user, token });
+					.json({ name:user.name,language:user.language});
 			}
 		} else {
 			res.status(404).json('User not found');
@@ -127,9 +127,9 @@ exports.updateLanguage = async (req, res) => {
 			name: user.name,
 			language: req.body.language,
 		});
-		console.log(result)
 		res.status(200).json({
 			success: true,
+			user: result,
 		});
 	} catch (error) {
 		res.status(500).json({
