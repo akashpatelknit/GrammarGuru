@@ -48,9 +48,9 @@ const Profile = () => {
 							value={selectedLang}
 							onChange={(e) => setSelectedLang(e.target.value)}
 						>
-							{' '}
+						
 							<option>choose a language</option>
-							{allLanguage.map((item, index) => (
+							{allLanguage?.map((item, index) => (
 								<option key={index} value={item}>
 									{item}
 								</option>
@@ -82,7 +82,7 @@ const Profile = () => {
 					</div>
 				</div>
 				<div className="previous_exercse">
-					{labels.map((item) => {
+					{labels?.map((item) => {
 						return (
 							<Link className="previous_exercse_item" key={item}>
 								{item}
