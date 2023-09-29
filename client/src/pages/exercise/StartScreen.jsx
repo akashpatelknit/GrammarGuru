@@ -5,8 +5,8 @@ import { getQuestions } from '../../app/action/questionAction';
 const StartScreen = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	let { name, language } = useSelector((state) => state.user.user.user);
-	
+	let { name, language } = useSelector((state) => state.user.userInfo);
+	console.log(name,language)
 	const handleClick = (e) => {
 		dispatch(getQuestions({ name, language }));
 		navigate(`/quiz`);

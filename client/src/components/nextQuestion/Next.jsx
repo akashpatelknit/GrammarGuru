@@ -5,7 +5,7 @@ import { addQuestionToExercise } from '../../app/action/addQuestionAction';
 export const Next = () => {
 	const { index } = useSelector((store) => store.questions);
 	const { summary } = useSelector((store) => store.questions);
-	const { language } = useSelector((store) => store.user.user.user);
+	const { language } = useSelector((store) => store.user.userInfo);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 

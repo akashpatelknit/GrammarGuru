@@ -28,11 +28,11 @@ function Login() {
 			</MDBTypography>
 			<MDBRow>
 				<MDBCol col="10" md="6">
-					{/* <img
+					<img
 						src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
 						className="img-fluid"
 						alt="Phone image"
-					/> */}
+					/>
 				</MDBCol>
 
 				<MDBCol
