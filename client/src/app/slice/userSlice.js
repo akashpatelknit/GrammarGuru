@@ -40,7 +40,7 @@ const userSlice = createSlice({
 		},
 		[loginrUser.fulfilled]: (state, action) => {
 			state.loading = false;
-			state.user = action.payload;
+			state.userInfo = action.payload;
 			state.isAuthenticated = true;
 		},
 		[loginrUser.rejected]: (state, action) => {
