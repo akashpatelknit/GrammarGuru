@@ -24,16 +24,22 @@ exports.register = async (req, res) => {
 		if (user) {
 			return res.status(400).json({ message: 'User already exist' });
 		}
+		const passwordHash = await bcrypt.hash(password, 10);
 		user = await createOne('users', {
 			name,
 			email,
-			password,
+			password: passwordHash,
 			language,
+			exercises: [],
 		});
 		const token = await generateToken(user._id);
 		const options = {
 			expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
 			httpOnly: true,
+		};
+		const userInfo = {
+			name: name,
+			language: language,
 		};
 		res.status(201).cookie('token', token, options).json({
 			success: true,
